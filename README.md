@@ -7,3 +7,43 @@ El objetivo principal del proyecto es ofrecer una herramienta digital que facili
 Gracias a esta solución, el Hotel Casa Azul puede automatizar tareas clave, reducir errores administrativos y ofrecer un servicio más moderno, profesional y accesible desde cualquier dispositivo con conexión a internet.
 
 Este repositorio contiene todo el código fuente, documentación y detalles técnicos del sistema desarrollado.
+
+# Manual para su instalación y ejecución
+
+## BACKEND (SpringBoot)
+
+### Requisitos Previos:
+·Java 17 o superior
+·Maven
+·Spring Boot
+
+### Descarga del Proyecto:
+git clone [URL_DEL_REPOSITORIO_BACKEND]
+cd nombre-proyecto-backend
+
+### Configuración de la Base de Datos (MySQL):
+Edita el fichero application.properties:
+spring.datasource.url=jdbc:mysql://localhost:3306/hotel
+spring.datasource.username=hotel
+spring.datasource.password=1234
+
+### Después ejecuta el proyecto.
+El backend se iniciará en:
+http://localhost:8080
+
+## Frontend (Vue)
+
+### Requisitos Previos:
+NPM (el gestor de paquetes incluido con Node.js) para instalar las dependencias del proyecto y ejecutar los scripts de construcción y arranque.
+
+### Proceso de instalación y ejecución:
+Clona el repositorio.
+Instala las dependencias:
+     npm install
+### Ejecuta el proyecto:
+     npm run dev
+
+El frontend se iniciará en:
+http://localhost:5173
+
+
