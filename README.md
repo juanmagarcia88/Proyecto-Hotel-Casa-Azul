@@ -60,3 +60,7 @@ http://localhost:5173
 
 ![Imagen Hotel Casa Azul Móvil](assets/CasaAzul2.png)
 
+![Imagen Habitaciones Hotel Casa Azul](assets/CasaAzul3.png)
+
+![Imagen Footer Hotel Casa Azul](assets/CasaAzul4.png)
+
