@@ -58,5 +58,5 @@ http://localhost:5173
 
 ![Imagen Hotel Casa Azul](assets/CasaAzul1.png)
 
-
+![Imagen Hotel Casa Azul Móvil](assets/CasaAzul2.png)
 
