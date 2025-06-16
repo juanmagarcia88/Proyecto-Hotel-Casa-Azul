@@ -54,4 +54,9 @@ Instala las dependencias:
 El frontend se iniciará en:
 http://localhost:5173
 
+# Galería
+
+![Imagen Hotel Casa Azul](assets/CasaAzul1.png)
+
+
 
