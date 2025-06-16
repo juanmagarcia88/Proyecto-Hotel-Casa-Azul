@@ -13,19 +13,24 @@ Este repositorio contiene todo el código fuente, documentación y detalles téc
 ## BACKEND (SpringBoot)
 
 ### Requisitos Previos:
-·Java 17 o superior
-·Maven
-·Spring Boot
+- Java 17 o superior
+- Maven
+- Spring Boot
 
 ### Descarga del Proyecto:
-git clone [URL_DEL_REPOSITORIO_BACKEND]
-cd nombre-proyecto-backend
+git clone https://github.com/IESJandula/hotel_casa_azul.git
+
+cd Back-CasaAzul
 
 ### Configuración de la Base de Datos (MySQL):
 Edita el fichero application.properties:
+
 spring.datasource.url=jdbc:mysql://localhost:3306/hotel
+
 spring.datasource.username=hotel
+
 spring.datasource.password=1234
+
 
 ### Después ejecuta el proyecto.
 El backend se iniciará en:
@@ -34,10 +39,13 @@ http://localhost:8080
 ## Frontend (Vue)
 
 ### Requisitos Previos:
-NPM (el gestor de paquetes incluido con Node.js) para instalar las dependencias del proyecto y ejecutar los scripts de construcción y arranque.
+- NPM (el gestor de paquetes incluido con Node.js) para instalar las dependencias del proyecto y ejecutar los scripts de construcción y arranque.
 
 ### Proceso de instalación y ejecución:
 Clona el repositorio.
+
+cd Front-CasaAzul
+
 Instala las dependencias:
      npm install
 ### Ejecuta el proyecto:
