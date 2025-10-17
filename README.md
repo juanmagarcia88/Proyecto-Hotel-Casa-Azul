@@ -22,7 +22,7 @@ Este repositorio contiene todo el código fuente, documentación y detalles téc
      FLUSH PRIVILEGES;
 ### Crea las tablas según las entidades del proyecto:
 
--- Tabla Cliente
+#### Tabla Cliente
 CREATE TABLE cliente (
     dni VARCHAR(20) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE cliente (
     contrasena VARCHAR(100) NOT NULL
 );
 
--- Tabla Habitacion
+#### Tabla Habitacion
 CREATE TABLE habitacion (
     numero BIGINT AUTO_INCREMENT PRIMARY KEY,
     tipo VARCHAR(50) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE habitacion (
     capacidad INT NOT NULL
 );
 
--- Tabla Reserva
+#### Tabla Reserva
 CREATE TABLE reserva (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     fecha_inicio DATE NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE reserva (
     FOREIGN KEY (cliente_id) REFERENCES cliente(dni)
 );
 
--- Tabla Pago
+#### Tabla Pago
 CREATE TABLE pago (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     monto DECIMAL(10,2) NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE pago (
     FOREIGN KEY (reserva_id) REFERENCES reserva(id)
 );
 
--- Tabla intermedia Reserva-Habitacion (Many-to-Many)
+#### Tabla intermedia Reserva-Habitacion (Many-to-Many)
 CREATE TABLE reserva_habitacion (
     reserva_id BIGINT,
     habitacion_num BIGINT,
