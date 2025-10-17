@@ -12,7 +12,7 @@ body {
 }
 
 header {
-
+  
   background-color: #001C55;
   display: flex;
   align-items: center;
@@ -20,7 +20,17 @@ header {
   padding-bottom: 35px;
   padding-left: 60px;
   position: relative;
+  animation: 1s slideDown ease-in-out;
+  border-bottom: 1px solid white;
+}
 
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
 #logo {
@@ -416,11 +426,11 @@ nav a {
   width: 23%;
   height: auto;
   border-radius: 10px;
+  transition: transform 0.5s ease;
 }
 
 .fotoGaleria:hover {
   transform: scale(1.08);
-  transition: 2000ms;
 }
 
 #admin:hover {
