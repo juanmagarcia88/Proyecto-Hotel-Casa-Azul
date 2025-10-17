@@ -21,7 +21,7 @@ Este repositorio contiene todo el código fuente, documentación y detalles téc
      GRANT ALL PRIVILEGES ON hotel.* TO 'hotel'@'localhost';
      FLUSH PRIVILEGES;
 ### Crea las tablas según las entidades del proyecto:
-     ```sql
+
 -- Tabla Cliente
 CREATE TABLE cliente (
     dni VARCHAR(20) PRIMARY KEY,
