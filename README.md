@@ -23,7 +23,9 @@ Este repositorio contiene todo el código fuente, documentación y detalles téc
 
 ### Edita el fichero application.properties para configurar la conexión a MySQL (si no está incluido ya):
 spring.datasource.url=jdbc:mysql://localhost:3306/hotel
+
 spring.datasource.username=hotel
+
 spring.datasource.password=1234
 
 ### Después ejecuta el proyecto:
