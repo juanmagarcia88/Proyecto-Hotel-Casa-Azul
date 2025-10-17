@@ -20,58 +20,8 @@ Este repositorio contiene todo el código fuente, documentación y detalles téc
      CREATE USER 'hotel'@'localhost' IDENTIFIED BY '1234';
      GRANT ALL PRIVILEGES ON hotel.* TO 'hotel'@'localhost';
      FLUSH PRIVILEGES;
-### Crea las tablas según las entidades del proyecto:
 
-#### Tabla Cliente
-CREATE TABLE cliente (
-    dni VARCHAR(20) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    apellido VARCHAR(100) NOT NULL,
-    telefono VARCHAR(9) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    contrasena VARCHAR(100) NOT NULL
-);
-
-#### Tabla Habitacion
-CREATE TABLE habitacion (
-    numero BIGINT AUTO_INCREMENT PRIMARY KEY,
-    tipo VARCHAR(50) NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    estado VARCHAR(20),
-    capacidad INT NOT NULL
-);
-
-#### Tabla Reserva
-CREATE TABLE reserva (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    fecha_inicio DATE NOT NULL,
-    fecha_fin DATE NOT NULL,
-    total DECIMAL(10,2),
-    cliente_id VARCHAR(20),
-    FOREIGN KEY (cliente_id) REFERENCES cliente(dni)
-);
-
-#### Tabla Pago
-CREATE TABLE pago (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    monto DECIMAL(10,2) NOT NULL,
-    metodo VARCHAR(20) NOT NULL,
-    factura VARCHAR(100),
-    fecha DATE NOT NULL,
-    reserva_id BIGINT,
-    FOREIGN KEY (reserva_id) REFERENCES reserva(id)
-);
-
-#### Tabla intermedia Reserva-Habitacion (Many-to-Many)
-CREATE TABLE reserva_habitacion (
-    reserva_id BIGINT,
-    habitacion_num BIGINT,
-    PRIMARY KEY (reserva_id, habitacion_num),
-    FOREIGN KEY (reserva_id) REFERENCES reserva(id),
-    FOREIGN KEY (habitacion_num) REFERENCES habitacion(numero)
-);
-
-### Edita el fichero application.properties para configurar la conexión a MySQL:
+### Edita el fichero application.properties para configurar la conexión a MySQL (si no está incluido ya):
 spring.datasource.url=jdbc:mysql://localhost:3306/hotel
 spring.datasource.username=hotel
 spring.datasource.password=1234
