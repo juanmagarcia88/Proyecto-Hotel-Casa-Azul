@@ -115,7 +115,7 @@
         </p>
 
         <div class="contenedorfoto">
-          <img class="fotogastronomia" src="../assets/casaAzulfoto4.png" alt="Gastronomia1" />
+          <img class="fotogastronomia" src="../assets/casaAzulFoto4.png" alt="Gastronomia1" />
           <img class="fotogastronomia" src="../assets/casaAzulfoto5.png" alt="Gastronomia2" />
         </div>
       </div>
