@@ -8,6 +8,7 @@ import es.hotel_back_v2.hotelV2.repositories.HabitacionRepository;
 import es.hotel_back_v2.hotelV2.repositories.ReservaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,7 +31,7 @@ public class ReservaService {
     @Autowired
     private HabitacionRepository habitacionRepository;
 
-    //crear reserva
+    // crear reserva
     @Transactional
     public Reserva crearReserva(
             @RequestParam Date fechaInicio,
@@ -65,12 +66,12 @@ public class ReservaService {
 
         long diffInMillies = fechaFin.getTime() - fechaInicio.getTime();
         // Calcular noches de manera que sea final para lambda
-        final long noches = (TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS) == 0) ? 1 : TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        final long noches = (TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS) == 0) ? 1
+                : TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
         double total = habitaciones.stream()
                 .mapToDouble(h -> h.getPrecio() * noches) // noches ahora es final
                 .sum();
-
 
         // Crear y guardar la reserva
         Reserva nuevaReserva = new Reserva();
@@ -91,44 +92,47 @@ public class ReservaService {
         return nuevaReserva;
     }
 
-    //comprobar si las habitaciones están disponibles
-    public boolean hayHabitacionesDisponibles(List<Habitacion> habitacionesSolicitadas, Date fechaInicio, Date fechaFin) {
-        //obtener todas las reservas existentes
+    // comprobar si las habitaciones están disponibles
+    public boolean hayHabitacionesDisponibles(List<Habitacion> habitacionesSolicitadas, Date fechaInicio,
+            Date fechaFin) {
+        // obtener todas las reservas existentes
         List<Reserva> todasReservas = reservaRepository.findAll();
 
-        //recorremos todas las reservas existentes
+        // recorremos todas las reservas existentes
         for (Reserva reserva : todasReservas) {
-            //recorremos las habitaciones de la reserva existente
+            // recorremos las habitaciones de la reserva existente
             for (Habitacion habitacion : reserva.getHabitaciones()) {
-                //verificamos si alguna de las habitaciones solicitadas ya está ocupada
+                // verificamos si alguna de las habitaciones solicitadas ya está ocupada
                 for (Habitacion habitacionSolicitada : habitacionesSolicitadas) {
                     if (habitacion.getNumero().equals(habitacionSolicitada.getNumero())) {
-                        //si las fechas de la nueva reserva se solapan con las fechas de la reserva existente
+                        // si las fechas de la nueva reserva se solapan con las fechas de la reserva
+                        // existente
                         long inicioExistente = reserva.getFecha_inicio().getTime();
                         long finExistente = reserva.getFecha_fin().getTime();
                         long nuevoInicio = fechaInicio.getTime();
                         long nuevoFin = fechaFin.getTime();
 
-                        //verificamos si las fechas se solapan
+                        // verificamos si las fechas se solapan
                         if (nuevoInicio < finExistente && nuevoFin > inicioExistente) {
-                            return false; //la habitación está ocupada en las fechas solicitadas
+                            return false; // la habitación está ocupada en las fechas solicitadas
                         }
                     }
                 }
             }
         }
-        //si no hay solapamiento de fechas, la habitación está disponible
+        // si no hay solapamiento de fechas, la habitación está disponible
         return true;
     }
 
-    //eliminar reserva por id
+    // eliminar reserva por id
     @Transactional
     public void eliminarReserva(Long id) {
         Optional<Reserva> reservaOpt = reservaRepository.findById(id);
         if (reservaOpt.isPresent()) {
             Reserva reserva = reservaOpt.get();
             for (Habitacion habitacion : reserva.getHabitaciones()) {
-                habitacionService.actualizarEstadoHabitacion(habitacion.getNumero(), Habitacion.Estado.DISPONIBLE); // Liberar habitación
+                habitacionService.actualizarEstadoHabitacion(habitacion.getNumero(), Habitacion.Estado.DISPONIBLE); // Liberar
+                                                                                                                    // habitación
             }
             reservaRepository.deleteById(id);
         } else {
@@ -136,17 +140,17 @@ public class ReservaService {
         }
     }
 
-    //mostrar todas las reservas
+    // mostrar todas las reservas
     public List<Reserva> buscarTodas() {
         return reservaRepository.findAll();
     }
 
-    //buscar reserva por id
+    // buscar reserva por id
     public Optional<Reserva> buscarReservaPorId(Long id) {
         return reservaRepository.findById(id);
     }
 
-    //modificar reserva
+    // modificar reserva
     @Transactional
     public Reserva modificarReserva(Long id, Reserva reservaActualizada) {
         Optional<Reserva> reserva = reservaRepository.findById(id);
@@ -154,12 +158,12 @@ public class ReservaService {
             reserva.get().setFecha_inicio(reservaActualizada.getFecha_inicio());
             reserva.get().setFecha_fin(reservaActualizada.getFecha_fin());
             return reservaRepository.save(reserva.get());
-        }else{
+        } else {
             throw new NoSuchElementException("Reserva no encontrada");
         }
     }
 
-    //crear factura
+    // crear factura
     public String generarFactura(Long idReserva) {
         Optional<Reserva> reservaOpt = reservaRepository.findById(idReserva);
         if (reservaOpt.isEmpty()) {
@@ -168,7 +172,8 @@ public class ReservaService {
         Reserva reserva = reservaOpt.get();
 
         long diffInMillies = reserva.getFecha_fin().getTime() - reserva.getFecha_inicio().getTime();
-        final long noches = (TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS) == 0) ? 1 : TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        final long noches = (TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS) == 0) ? 1
+                : TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
         double total = reserva.getHabitaciones().stream()
                 .mapToDouble(h -> h.getPrecio() * noches)
@@ -181,12 +186,12 @@ public class ReservaService {
                 "Total a Pagar: $" + total;
     }
 
-    //listar reservas por fecha
+    // listar reservas por fecha
     public Map<Date, List<Reserva>> listarReservasAgrupadasPorFecha() {
-        //obtener todas las reservas
+        // obtener todas las reservas
         List<Reserva> reservas = reservaRepository.findAll();
 
-        //agrupar las reservas por su fecha de inicio
+        // agrupar las reservas por su fecha de inicio
         return reservas.stream()
                 .collect(Collectors.groupingBy(Reserva::getFecha_inicio));
     }
@@ -198,4 +203,22 @@ public class ReservaService {
 
         return reservaRepository.findByCliente(cliente);
     }
+
+    // Revisa todas las reservas y libera las habitaciones de las reserva cuya fecha_fin ya pasó
+    @Scheduled(cron = "0/30 * * * * ?") // Se ejecuta todos los días a medianoche
+    @Transactional
+    public void liberarHabitacionesDeReservasPasadas() {
+        List<Reserva> reservas = this.buscarTodas(); // Obtener todas las reservas
+        Date ahora = new Date();
+
+        for (Reserva reserva : reservas) {
+            if (reserva.getFecha_fin().before(ahora)) {
+                // Liberar habitaciones de la reserva
+                reserva.getHabitaciones().forEach(habitacion -> habitacionService
+                        .actualizarEstadoHabitacion(habitacion.getNumero(), Habitacion.Estado.DISPONIBLE));
+                System.out.println("Habitaciones liberadas para la reserva: " + reserva.getId());
+            }
+        }
+    }
+
 }
