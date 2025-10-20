@@ -128,19 +128,19 @@
         <div class="galeria">
           <div class="contenedorGaleria">
             <img class="fotoGaleria" src="../assets/casaAzulFoto6.jpg" alt="Galeria1" />
-            <img class="fotoGaleria" src="../assets/casaAzulfoto7.jpg" alt="Galeria2" />
+            <img class="fotoGaleria" src="../assets/casaAzulFoto7.jpg" alt="Galeria2" />
           </div>
           <div class="contenedorGaleria">
-            <img class="fotoGaleria" src="../assets/casaAzulfoto13.jpg" alt="Galeria3" />
-            <img class="fotoGaleria" src="../assets/casaAzulfoto14.jpg" alt="Galeria4" />
+            <img class="fotoGaleria" src="../assets/casaAzulFoto13.jpg" alt="Galeria3" />
+            <img class="fotoGaleria" src="../assets/casaAzulFoto14.jpg" alt="Galeria4" />
           </div>
           <div class="contenedorGaleria">
-            <img class="fotoGaleria" src="../assets/casaAzulfoto10.jpg" alt="Galeria5" />
-            <img class="fotoGaleria" src="../assets/casaAzulfoto11.jpg" alt="Galeria6" />
+            <img class="fotoGaleria" src="../assets/casaAzulFoto10.jpg" alt="Galeria5" />
+            <img class="fotoGaleria" src="../assets/casaAzulFoto11.jpg" alt="Galeria6" />
           </div>
           <div class="contenedorGaleria">
-            <img class="fotoGaleria" src="../assets/casaAzulfoto12.jpg" alt="Galeria3" />
-            <img class="fotoGaleria" src="../assets/casaAzulfoto9.jpg" alt="Galeria4" />
+            <img class="fotoGaleria" src="../assets/casaAzulFoto12.jpg" alt="Galeria3" />
+            <img class="fotoGaleria" src="../assets/casaAzulFoto9.jpg" alt="Galeria4" />
           </div>
         </div>
       </center>
