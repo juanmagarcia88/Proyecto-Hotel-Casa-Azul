@@ -9,6 +9,7 @@
 		<version>3.3.5</version>
 		<relativePath />
 	</parent>
+
 	<groupId>es.hotel-back-v2</groupId>
 	<artifactId>hotelV2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -16,7 +17,7 @@
 	<description>Proyecto del back del hotel v2</description>
 
 	<properties>
-		<java.version>23</java.version>
+		<java.version>17</java.version>
 	</properties>
 
 	<dependencies>
@@ -51,7 +52,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.11.0</version>
 				<configuration>
-					<release>23</release>
+					<release>17</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -60,6 +61,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
