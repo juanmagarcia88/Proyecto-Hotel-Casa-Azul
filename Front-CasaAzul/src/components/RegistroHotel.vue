@@ -36,6 +36,7 @@
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
+import { api } from '../api.js';
 
 const router = useRouter();
 const route = useRoute();
@@ -65,7 +66,7 @@ const crearCliente = async () => {
   };
 
   try {
-    await axios.post("http://localhost:8080/cliente", clienteData);
+    await api.post("/cliente", clienteData);
 
     // Si hay datos de reserva guardados, continúa con el flujo
     const reservaDatos = JSON.parse(localStorage.getItem('reservaDatos'));

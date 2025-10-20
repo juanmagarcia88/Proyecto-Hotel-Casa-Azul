@@ -35,6 +35,7 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { api } from '../api.js';
 
 // Lista reactiva donde se almacenan las reservas obtenidas del backend
 const reservas = ref([]);
@@ -48,7 +49,7 @@ const Home = () => {
 // Obtiene todas las reservas desde el servidor
 const getReservas = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/reserva/mostrartodas");
+    const response = await api.get("/reserva/mostrartodas");
     reservas.value = response.data;
   } catch (err) {
     console.error("Error al obtener las reservas", err);
@@ -59,7 +60,7 @@ const getReservas = async () => {
 const eliminarReserva = async (id) => {
   if (confirm("¿Está seguro de que desea eliminar esta reserva?")) {
     try {
-      await axios.delete(`http://localhost:8080/reserva/eliminar/${id}`);
+      await api.delete(`/reserva/eliminar/${id}`);
       // Actualiza la lista eliminando la reserva localmente
       reservas.value = reservas.value.filter(reserva => reserva.id !== id);
       alert("Reserva eliminada correctamente.");

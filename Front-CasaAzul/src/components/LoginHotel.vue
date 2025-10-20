@@ -26,6 +26,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { api } from '../api.js';
 import axios from "axios";
 
 const dni = ref("");
@@ -41,7 +42,7 @@ const habitaciones = JSON.parse(route.query.habitaciones ?? "[]");
 // Intenta iniciar sesión y redirigir a la reserva
 const iniciarSesion = async () => {
   try {
-    const response = await axios.post("http://localhost:8080/cliente/login", {
+    const response = await api.post("/cliente/login", {
       dni: dni.value,
       contrasena: contrasena.value,
     });

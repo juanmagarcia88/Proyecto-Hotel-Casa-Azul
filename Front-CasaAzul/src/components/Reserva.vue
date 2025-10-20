@@ -28,6 +28,7 @@
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
+import { api } from '../api.js';
 
 const route = useRoute();
 const router = useRouter();
@@ -59,7 +60,7 @@ const enviarFormulario = async () => {
       montoTotal,
     };
 
-    const response = await axios.post("http://localhost:8080/reserva/crear", reservaData);
+    const response = await api.post("http://localhost:8080/reserva/crear", reservaData);
     if (response.status === 200) {
       mensaje.value = "Reserva realizada correctamente";
       setTimeout(() => router.push("/"), 2500); // redirige después de 2.5s

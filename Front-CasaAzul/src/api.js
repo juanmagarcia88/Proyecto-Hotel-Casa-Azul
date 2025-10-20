@@ -1,7 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
-const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+// URL base del backend
+const API_URL = "https://proyecto-hotel-casa-azul-production.up.railway.app";
+
+export const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json"
+  }
 });
-
-export default api;

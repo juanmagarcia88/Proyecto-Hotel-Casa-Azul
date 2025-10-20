@@ -27,6 +27,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import { api } from '../api.js';
 
 const router = useRouter();
 const usuario = ref("");
@@ -41,7 +42,7 @@ const Home = () => {
 // Función para autenticar al cliente con su DNI y contraseña
 const login = async () => {
   try {
-    const response = await axios.post("http://localhost:8080/cliente/login", {
+    const response = await api.post("/cliente/login", {
       dni: usuario.value,
       contrasena: contraseña.value,
     });
