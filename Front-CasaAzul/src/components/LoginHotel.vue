@@ -29,7 +29,6 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { api } from '../api.js';
 
 const dni = ref("");
 const contrasena = ref("");
@@ -47,7 +46,7 @@ const habitaciones = JSON.parse(route.query.habitaciones ?? "[]");
 const iniciarSesion = async () => {
   error.value = ""; // limpiar error previo
   try {
-    const response = await api.post("/cliente/login", {
+    const response = await axios.post("http://localhost:8080/cliente/login", {
       dni: dni.value,
       contrasena: contrasena.value,
     });

@@ -46,7 +46,6 @@
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
-import { api } from '../api.js';
 
 const reservas = ref([]);
 const route = useRoute();
@@ -61,8 +60,8 @@ const Home = () => {
 // Función para obtener las reservas del cliente desde la API
 const obtenerReservas = async () => {
   try {
-    const response = await api.get(
-      `/reserva/buscarporDni/${dniCliente}`
+    const response = await axios.get(
+      `http://localhost:8080/reserva/buscarporDni/${dniCliente}`
     );
     reservas.value = response.data;
   } catch (err) {
@@ -74,7 +73,7 @@ const obtenerReservas = async () => {
 const eliminarReserva = async (id) => {
   if (confirm("¿Está seguro de que desea eliminar esta reserva?")) {
     try {
-      await api.delete(`http://localhost:8080/reserva/eliminar/${id}`);
+      await axios.delete(`http://localhost:8080/reserva/eliminar/${id}`);
       // Elimina la reserva localmente de la lista
       reservas.value = reservas.value.filter(reserva => reserva.id !== id);
       alert("Reserva eliminada correctamente.");

@@ -35,7 +35,6 @@
 // Importaciones de Vue y librerías
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { api } from '../api.js';
 import axios from "axios";
 
 const router = useRouter();
@@ -51,7 +50,7 @@ const fecFin = route.query.fecFin || "";
 // Función para obtener habitaciones disponibles desde backend
 const getHabitaciones = async () => {
   try {
-    const response = await api.get("http://localhost:8080/habitacion/mostrarDisponibles");
+    const response = await axios.get("http://localhost:8080/habitacion/mostrarDisponibles");
     habitaciones.value = response.data;
   } catch (err) {
     console.error("Error al obtener las habitaciones", err);
