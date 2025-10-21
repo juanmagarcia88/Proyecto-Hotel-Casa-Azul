@@ -1,30 +1,44 @@
 <template>
   <div id="bodyFormulario">
     <header class="headerReserva">
-      <!-- Botón que regresa al login del admin -->
       <h1 @click="Home" class="tituloReserva">Reservas</h1>
     </header>
 
     <main>
       <div class="reservas_div">
-        <!-- Lista de todas las reservas, cada una puede eliminarse al hacer click -->
         <div
           v-for="reserva in reservas"
           :key="reserva.id"
           class="card"
-          @click="eliminarReserva(reserva.id)"
         >
-          <a class="card1" href="#">
-            <p>ID: {{ reserva.id }}</p>
-            <p>Fecha de inicio: {{ new Date(reserva.fecha_inicio).toLocaleDateString() }}</p>
-            <p>Fecha de fin: {{ new Date(reserva.fecha_fin).toLocaleDateString() }}</p>
-            <p>Total: €{{ reserva.total }}</p>
-            <div class="go-corner">
-              <div class="go-arrow">
-                ❌
-              </div>
+          <p class="text-title">Reserva ID: {{ reserva.id }}</p>
+          <p class="text-body">Inicio: {{ new Date(reserva.fecha_inicio).toLocaleDateString() }}</p>
+          <p class="text-body">Fin: {{ new Date(reserva.fecha_fin).toLocaleDateString() }}</p>
+          <p class="text-body">Total: €{{ reserva.total }}</p>
+
+          <!-- Botón eliminar -->
+          <button class="card-button" @click="abrirConfirm(reserva.id)">
+            Eliminar
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal de confirmación / mensaje -->
+      <div class="modal" :class="{ visible: confirmacionVisible }">
+        <div class="modal-content">
+          <template v-if="!mensajeModal">
+            <p>¿Está seguro de que desea eliminar esta reserva?</p>
+            <div class="modal-buttons">
+              <button @click="confirmarEliminacion">Sí</button>
+              <button @click="cancelarEliminacion">No</button>
             </div>
-          </a>
+          </template>
+          <template v-else>
+            <p :class="mensajeModal.tipo">{{ mensajeModal.texto }}</p>
+            <div class="modal-buttons">
+              <button @click="cerrarModal">Cerrar</button>
+            </div>
+          </template>
         </div>
       </div>
     </main>
@@ -36,42 +50,65 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
-// Lista reactiva donde se almacenan las reservas obtenidas del backend
 const reservas = ref([]);
 const router = useRouter();
+const confirmacionVisible = ref(false);
+let reservaAEliminar = null;
+const mensajeModal = ref(null); // Contenido del mensaje dentro del modal
 
 // Redirige al login de admin
-const Home = () => {
-  router.push("/loginAdmin");
-};
+const Home = () => router.push("/loginAdmin");
 
-// Obtiene todas las reservas desde el servidor
-const getReservas = async () => {
+// Obtiene todas las reservas
+const obtenerReservas = async () => {
   try {
     const response = await axios.get("http://localhost:8080/reserva/mostrartodas");
     reservas.value = response.data;
   } catch (err) {
     console.error("Error al obtener las reservas", err);
+    abrirModalMensaje("Error al cargar las reservas", "error");
   }
 };
 
-// Elimina una reserva por su ID tras confirmación del usuario
-const eliminarReserva = async (id) => {
-  if (confirm("¿Está seguro de que desea eliminar esta reserva?")) {
-    try {
-      await axios.delete(`http://localhost:8080/reserva/eliminar/${id}`);
-      // Actualiza la lista eliminando la reserva localmente
-      reservas.value = reservas.value.filter(reserva => reserva.id !== id);
-      alert("Reserva eliminada correctamente.");
-    } catch (err) {
-      console.error("Error al eliminar la reserva", err);
-      alert("Hubo un error al eliminar la reserva.");
-    }
+// Abrir modal de confirmación
+const abrirConfirm = (id) => {
+  reservaAEliminar = id;
+  mensajeModal.value = null;
+  confirmacionVisible.value = true;
+};
+
+// Cerrar modal después de mostrar mensaje
+const cerrarModal = () => {
+  confirmacionVisible.value = false;
+  reservaAEliminar = null;
+  mensajeModal.value = null;
+};
+
+// Mostrar mensaje dentro del modal
+const abrirModalMensaje = (texto, tipo = "exito") => {
+  mensajeModal.value = { texto, tipo };
+};
+
+// Confirmar eliminación
+const confirmarEliminacion = async () => {
+  try {
+    await axios.delete(`http://localhost:8080/reserva/eliminar/${reservaAEliminar}`);
+    reservas.value = reservas.value.filter(r => r.id !== reservaAEliminar);
+    abrirModalMensaje("Reserva eliminada correctamente", "exito");
+  } catch (err) {
+    console.error("Error al eliminar la reserva", err);
+    abrirModalMensaje("Hubo un error al eliminar la reserva", "error");
   }
+};
+
+// Cancelar eliminación
+const cancelarEliminacion = () => {
+  reservaAEliminar = null;
+  confirmacionVisible.value = false;
 };
 
 // Carga las reservas al montar el componente
 onMounted(() => {
-  getReservas();
+  obtenerReservas();
 });
 </script>

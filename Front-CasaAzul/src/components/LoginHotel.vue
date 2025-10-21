@@ -14,7 +14,7 @@
         <label class="label" for="contrasena">Contraseña:</label>
         <input class="inputSelect" v-model="contrasena" type="password" required />
 
-        <!-- Mensaje de error bonito -->
+        <!-- Mensaje de error -->
         <p v-if="error" class="errorMensaje">{{ error }}</p>
 
         <button class="inputSelect" type="submit">Iniciar sesión</button>
@@ -29,6 +29,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import axios from "axios";
 
 const dni = ref("");
 const contrasena = ref("");

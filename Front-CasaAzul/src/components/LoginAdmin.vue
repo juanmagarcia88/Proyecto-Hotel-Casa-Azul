@@ -14,10 +14,10 @@
         <label class="label" for="contraseña">Contraseña:</label>
         <input class="inputSelect" type="password" id="contraseña" v-model="contraseña" required>
 
+        <p v-if="error" class="errorMensaje">{{ error }}</p>
+
         <button class="inputSelect" type="submit">Iniciar sesión</button>
 
-        <!-- Mensaje de error si las credenciales no son válidas -->
-        <p v-if="error" class="error">{{ error }}</p>
       </form>
     </main>
   </div>
