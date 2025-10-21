@@ -16,7 +16,6 @@
           <!-- Información de cada habitación -->
           <p class="cookieHeading">Tipo: {{ habitacion.tipo }}</p>
           <p class="cookieDescription">Precio: ${{ habitacion.precio }}</p>
-          <p class="cookieDescription">ID de la habitación: {{ habitacion.numero }}</p>
           <!-- Botón para seleccionar o quitar habitación -->
           <button class="acceptButton" @click="toggleSeleccion(habitacion)">
             {{ estaSeleccionada(habitacion) ? "Quitar" : "Seleccionar" }}

@@ -9,10 +9,13 @@
       <!-- Formulario de inicio de sesión -->
       <form id="formularioReserva" @submit.prevent="iniciarSesion">
         <label class="label" for="dni">DNI:</label>
-        <input class="inputSelect" v-model="dni" type="dni" required />
+        <input class="inputSelect" v-model="dni" type="text" required />
 
         <label class="label" for="contrasena">Contraseña:</label>
-        <input class="inputSelect" v-model="contrasena" type="contrasena" required />
+        <input class="inputSelect" v-model="contrasena" type="password" required />
+
+        <!-- Mensaje de error bonito -->
+        <p v-if="error" class="errorMensaje">{{ error }}</p>
 
         <button class="inputSelect" type="submit">Iniciar sesión</button>
 
@@ -27,10 +30,11 @@
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { api } from '../api.js';
-import axios from "axios";
 
 const dni = ref("");
 const contrasena = ref("");
+const error = ref("");
+
 const route = useRoute();
 const router = useRouter();
 
@@ -41,6 +45,7 @@ const habitaciones = JSON.parse(route.query.habitaciones ?? "[]");
 
 // Intenta iniciar sesión y redirigir a la reserva
 const iniciarSesion = async () => {
+  error.value = ""; // limpiar error previo
   try {
     const response = await api.post("/cliente/login", {
       dni: dni.value,
@@ -59,9 +64,9 @@ const iniciarSesion = async () => {
         dniCliente: cliente.dni,
       },
     });
-  } catch (error) {
-    alert("DNI o contraseña incorrectos.");
-    console.error("Error de inicio de sesión:", error);
+  } catch (err) {
+    error.value = "DNI o contraseña incorrectos.";
+    console.error("Error de inicio de sesión:", err);
   }
 };
 

@@ -156,10 +156,10 @@
           </a>
         </div>
         <div class="footer-social">
-          <a href="https://www.instagram.com" target="_blank" class="footer-social-icon">
+          <a href="https://www.instagram.com/lacasaazul1924/" target="_blank" class="footer-social-icon">
             <img src="../assets/instagram.jpg" alt="Instagram" />
           </a>
-          <a href="https://www.facebook.com" target="_blank" class="footer-social-icon">
+          <a href="https://www.facebook.com/p/La-Casa-Azul-61558999250698/" target="_blank" class="footer-social-icon">
             <img src="../assets/facebook.jpg" alt="Facebook" />
           </a>
           <a href="https://www.twitter.com" target="_blank" class="footer-social-icon">

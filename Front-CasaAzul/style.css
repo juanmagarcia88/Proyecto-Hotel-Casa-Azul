@@ -829,8 +829,8 @@ footer {
 /* mostrarhab.vue */
 /* From Uiverse.io by vinodjangid07 */
 .cookieCard {
-  width: 250px;
-  height: 200px;
+  width: 220px;
+  height: 170px;
   background-color: #001C55;
   display: flex;
   flex-direction: column;
@@ -844,6 +844,11 @@ footer {
   box-shadow:
     0 12px 24px -8px rgba(0, 0, 0, 0.45),
     0 6px 12px -6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.8s ease ;
+}
+
+.cookieCard:hover {
+  transform: scale(1.1);
 }
 
 .cookieCard::before {
@@ -937,6 +942,7 @@ footer {
   display: flex;
   justify-content: center;
   margin-top: 30px;
+  margin-bottom: 60px;
 }
 
 
@@ -950,6 +956,12 @@ footer {
 .noRegistrado:hover {
   border-bottom: 1px solid #001C55;
   cursor: pointer;
+}
+
+.errorMensaje {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin: 0.25rem 0 0.5rem 0;
 }
 
 @media (max-width: 768px) {
