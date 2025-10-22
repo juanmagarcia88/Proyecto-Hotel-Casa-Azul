@@ -1,12 +1,12 @@
 <template>
   <div id="bodyFormulario">
     <header class="headerReserva">
-      <!-- Título clickable que lleva a la página de inicio -->
+      <!-- Título clickable que lleva a la página principal -->
       <h1 @click="Home" class="tituloReserva">Iniciar sesión como cliente</h1>
     </header>
 
     <main>
-      <!-- Formulario de login del cliente -->
+      <!-- Formulario de inicio de sesión para clientes -->
       <form id="formularioReserva" @submit.prevent="login">
         <label class="label" for="usuario">DNI:</label>
         <input class="inputSelect" type="text" id="usuario" v-model="usuario" required />
@@ -29,11 +29,13 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 
 const router = useRouter();
-const usuario = ref("");
-const contraseña = ref("");
-const error = ref("");
 
-// Función que redirige al inicio
+// Datos del formulario
+const usuario = ref(""); // DNI del cliente
+const contraseña = ref(""); // Contraseña del cliente
+const error = ref(""); // Mensaje de error si falla el login
+
+// Función que redirige a la página principal
 const Home = () => {
   router.push("/");
 };

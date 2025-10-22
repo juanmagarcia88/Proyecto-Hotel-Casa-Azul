@@ -2,11 +2,12 @@
   <!-- Encabezado con botón para volver -->
   <div id="bodyFormulario">
     <header class="headerReserva">
+      <!-- Título que redirige a la página principal -->
       <h1 @click="Home" class="tituloReserva">Crear una cuenta para reservar</h1>
     </header>
 
     <main>
-      <!-- Formulario de registro -->
+      <!-- Formulario de registro de nuevo cliente -->
       <form id="formularioReserva" @submit.prevent="crearCliente">
         <label class="label" for="nombre">Nombre:</label>
         <input class="inputSelect" v-model="nombre" type="text" required />
@@ -48,7 +49,7 @@ const email = ref("");
 const telefono = ref("");
 const contrasena = ref("");
 
-// Obtiene reserva temporal (si existe)
+// Datos de reserva temporal (si el usuario vino de selección de fechas/habitaciones)
 const fecIni = route.query.fecIni ?? "";
 const fecFin = route.query.fecFin ?? "";
 const habitaciones = JSON.parse(route.query.habitaciones ?? "[]");
@@ -67,7 +68,7 @@ const crearCliente = async () => {
   try {
     await axios.post("http://localhost:8080/cliente", clienteData);
 
-    // Si hay datos de reserva guardados, continúa con el flujo
+    // Si hay datos de reserva guardados en el localStorage, continúa con el flujo
     const reservaDatos = JSON.parse(localStorage.getItem('reservaDatos'));
     if (reservaDatos) {
       router.push({

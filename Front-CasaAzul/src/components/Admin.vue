@@ -1,10 +1,12 @@
 <template>
   <div id="bodyFormulario">
     <header class="headerReserva">
+      <!-- Título que redirige al login de admin -->
       <h1 @click="Home" class="tituloReserva">Reservas</h1>
     </header>
 
     <main>
+      <!-- Lista de reservas -->
       <div class="reservas_div">
         <div
           v-for="reserva in reservas"
@@ -16,7 +18,7 @@
           <p class="text-body">Fin: {{ new Date(reserva.fecha_fin).toLocaleDateString() }}</p>
           <p class="text-body">Total: €{{ reserva.total }}</p>
 
-          <!-- Botón eliminar -->
+          <!-- Botón para abrir modal de confirmación de eliminación -->
           <button class="card-button" @click="abrirConfirm(reserva.id)">
             Eliminar
           </button>
@@ -50,11 +52,11 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
-const reservas = ref([]);
+const reservas = ref([]); // Lista de reservas obtenidas del backend
+const confirmacionVisible = ref(false); // Controla la visibilidad del modal
+let reservaAEliminar = null; // ID de la reserva que se desea eliminar
+const mensajeModal = ref(null); // Mensaje mostrado dentro del modal (error o éxito)
 const router = useRouter();
-const confirmacionVisible = ref(false);
-let reservaAEliminar = null;
-const mensajeModal = ref(null); // Contenido del mensaje dentro del modal
 
 // Redirige al login de admin
 const Home = () => router.push("/loginAdmin");
@@ -72,6 +74,7 @@ const axiosConfig = () => ({
 // Obtiene todas las reservas
 const obtenerReservas = async () => {
   try {
+    // Devuelve un array de reservas con campos: id, fecha_inicio, fecha_fin, total
     const response = await axios.get(
       "http://localhost:8080/reserva/mostrartodas",
       axiosConfig()
@@ -83,32 +86,33 @@ const obtenerReservas = async () => {
   }
 };
 
-// Abrir modal de confirmación
+// Abre modal de confirmación
 const abrirConfirm = (id) => {
   reservaAEliminar = id;
   mensajeModal.value = null;
   confirmacionVisible.value = true;
 };
 
-// Cerrar modal después de mostrar mensaje
+// Cierra modal después de mostrar mensaje
 const cerrarModal = () => {
   confirmacionVisible.value = false;
   reservaAEliminar = null;
   mensajeModal.value = null;
 };
 
-// Mostrar mensaje dentro del modal
+// Muestra mensaje dentro del modal
 const abrirModalMensaje = (texto, tipo = "exito") => {
   mensajeModal.value = { texto, tipo };
 };
 
-// Confirmar eliminación
+// Confirma eliminación
 const confirmarEliminacion = async () => {
   try {
     await axios.delete(
       `http://localhost:8080/reserva/eliminar/${reservaAEliminar}`,
       axiosConfig()
     );
+    // Elimina la reserva localmente
     reservas.value = reservas.value.filter(r => r.id !== reservaAEliminar);
     abrirModalMensaje("Reserva eliminada correctamente", "exito");
   } catch (err) {
@@ -117,7 +121,7 @@ const confirmarEliminacion = async () => {
   }
 };
 
-// Cancelar eliminación
+// Cancela eliminación
 const cancelarEliminacion = () => {
   reservaAEliminar = null;
   confirmacionVisible.value = false;

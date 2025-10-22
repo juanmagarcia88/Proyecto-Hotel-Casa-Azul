@@ -2,6 +2,7 @@
   <!-- Encabezado con botón para volver -->
   <div id="bodyFormulario">
     <header class="headerReserva">
+      <!-- Encabezado clickable que regresa al home -->
       <h1 @click="Home" class="tituloReserva">Último paso para reservar</h1>
     </header>
 
@@ -18,7 +19,7 @@
         <button class="inputSelect" type="submit">Finalizar Reserva</button>
       </form>
 
-      <!-- Mensaje luego de enviar -->
+      <!-- Mensaje luego de enviar la reserva -->
       <h3 class="mensajeReserva" v-else>{{ mensaje }}</h3>
     </main>
   </div>
@@ -32,10 +33,10 @@ import axios from "axios";
 const route = useRoute();
 const router = useRouter();
 
-const metodoPago = ref("tarjeta");
-const habitaciones = ref([]);
-const dniCliente = ref("");
-const mensaje = ref(null); // mensaje de éxito o error
+const metodoPago = ref("tarjeta"); // Método de pago seleccionado
+const habitaciones = ref([]); // Habitaciones seleccionada
+const dniCliente = ref(""); // DNI del cliente
+const mensaje = ref(null); // Mensaje de éxito o error
 
 // Carga los datos de la reserva al montar el componente
 onMounted(() => {
@@ -43,9 +44,10 @@ onMounted(() => {
   dniCliente.value = route.query.dniCliente ?? "";
 });
 
-// Envía la reserva al backend
+// Función que envía la reserva al backend
 const enviarFormulario = async () => {
   try {
+    // Calcula el monto total sumando los precios de las habitaciones
     const montoTotal = habitaciones.value.reduce(
       (total, habitacion) => total + habitacion.precio,
       0
@@ -62,7 +64,7 @@ const enviarFormulario = async () => {
     const response = await axios.post("http://localhost:8080/reserva/crear", reservaData);
     if (response.status === 200) {
       mensaje.value = "Reserva realizada correctamente";
-      setTimeout(() => router.push("/"), 2500); // redirige después de 2.5s
+      setTimeout(() => router.push("/"), 2500); // Redirige después de 2.5s
     }
   } catch (error) {
     console.error("Error al crear la reserva", error);
@@ -70,7 +72,7 @@ const enviarFormulario = async () => {
   }
 };
 
-// Volver al home
+// Función para volver a la página principal
 const Home = () => {
   router.push("/");
 };

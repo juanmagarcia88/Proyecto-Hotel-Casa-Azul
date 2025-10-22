@@ -2,6 +2,7 @@
   <!-- Encabezado con botón para volver -->
   <div id="bodyFormulario">
     <header class="headerReserva">
+      <!-- Título que redirige al inicio -->
       <h1 @click="goHome" class="tituloReserva">Escoger habitaciones</h1>
     </header>
 

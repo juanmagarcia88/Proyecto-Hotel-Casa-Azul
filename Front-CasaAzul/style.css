@@ -43,7 +43,6 @@ header {
   display: none;
 }
 
-/* From Uiverse.io by portseif */
 #botonHeader {
   align-items: center;
   background-color: transparent;
@@ -438,8 +437,6 @@ nav a {
   cursor: pointer;
 }
 
-/* reserva.html */
-
 .mensajeReserva {
   text-align: center;
   color: #001C55;
@@ -617,14 +614,10 @@ footer {
   padding-top: 20px;
 }
 
-/* loginadmin.vue */
-
 .error {
   color: red;
   margin-top: 10px;
 }
-
-/* admin.vue */
 
 .card {
   width: 220px;
@@ -804,9 +797,6 @@ footer {
   opacity: 1;
 }
 
-
-/* mostrarhab.vue */
-/* From Uiverse.io by vinodjangid07 */
 .cookieCard {
   width: 220px;
   height: 170px;
@@ -890,7 +880,6 @@ footer {
   padding: 30px;
 }
 
-/* From Uiverse.io by absoluteSTrange */ 
 #botonHabs {
   padding: 17px 40px;
   border-radius: 10px;
@@ -911,7 +900,6 @@ footer {
 
 #botonHabs:active {
   background-color: rgb(175, 175, 175);
-  /*50, 168, 80*/
   box-shadow: rgb(143, 143, 143) 0px 0px 0px 0px;
   transform: translateY(5px);
   transition: 200ms;

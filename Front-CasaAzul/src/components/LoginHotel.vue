@@ -2,11 +2,12 @@
   <!-- Encabezado con botón para volver -->
   <div id="bodyFormulario">
     <header class="headerReserva">
+      <!-- Título que redirige a la página principal -->
       <h1 @click="Home" class="tituloReserva">Iniciar sesión para reservar</h1>
     </header>
 
     <main>
-      <!-- Formulario de inicio de sesión -->
+      <!-- Formulario de inicio de sesión para clientes -->
       <form id="formularioReserva" @submit.prevent="iniciarSesion">
         <label class="label" for="dni">DNI:</label>
         <input class="inputSelect" v-model="dni" type="text" required />
@@ -14,7 +15,7 @@
         <label class="label" for="contrasena">Contraseña:</label>
         <input class="inputSelect" v-model="contrasena" type="password" required />
 
-        <!-- Mensaje de error -->
+        <!-- Mensaje de error si las credenciales son incorrectas -->
         <p v-if="error" class="errorMensaje">{{ error }}</p>
 
         <button class="inputSelect" type="submit">Iniciar sesión</button>
@@ -38,15 +39,16 @@ const error = ref("");
 const route = useRoute();
 const router = useRouter();
 
-// Datos de la reserva pasada por query
+// Datos de la reserva pasada por query (si vienen de selección previa)
 const fecIni = route.query.fecIni ?? "";
 const fecFin = route.query.fecFin ?? "";
 const habitaciones = JSON.parse(route.query.habitaciones ?? "[]");
 
-// Intenta iniciar sesión y redirigir a la reserva
+// Intenta iniciar sesión y redirigir a la reserva final
 const iniciarSesion = async () => {
   error.value = ""; // limpiar error previo
   try {
+    // Envía {dni, contrasena} y recibe datos del cliente
     const response = await axios.post("http://localhost:8080/cliente/login", {
       dni: dni.value,
       contrasena: contrasena.value,
@@ -54,7 +56,7 @@ const iniciarSesion = async () => {
 
     const cliente = response.data;
 
-    // Redirige a la vista de reserva final
+    // Redirige a la vista de reserva final pasando datos necesarios
     router.push({
       path: "/reserva",
       query: {

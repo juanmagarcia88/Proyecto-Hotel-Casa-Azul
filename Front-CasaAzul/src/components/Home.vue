@@ -24,14 +24,12 @@
           <label for="end">Fecha de fin:</label>
           <input v-model="fecFin" type="date" id="end" name="end-date" />
 
-          <!-- From Uiverse.io by PriyanshuGupta28 -->
           <button @click="reservar" class="pushable">
             <span class="shadow"></span>
             <span class="edge"></span>
             <span class="front"> Reservar </span>
           </button>
 
-          <!-- From Uiverse.io by PriyanshuGupta28 -->
           <button @click="misReservas" class="pushable">
             <span class="shadow"></span>
             <span class="edge"></span>
