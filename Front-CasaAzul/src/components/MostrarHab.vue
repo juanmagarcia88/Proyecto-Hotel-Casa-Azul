@@ -6,6 +6,10 @@
       <h1 @click="goHome" class="tituloReserva">Escoger habitaciones</h1>
     </header>
 
+    <div v-if="mostrarMensaje" class="notificacion">
+      {{ mensaje }}
+    </div>
+
     <main>
       <!-- Lista de habitaciones disponibles -->
       <div class="habitacionesDisponibles">
@@ -44,6 +48,9 @@ const route = useRoute();
 const habitaciones = ref([]); // Lista de habitaciones disponibles
 const selectedRooms = ref([]); // Lista de habitaciones seleccionadas
 
+const mensaje = ref(""); // Contenido del mensaje de notificación
+const mostrarMensaje = ref(false); // Estado de visibilidad del mensaje
+
 // Fechas desde los parámetros de la URL
 const fecIni = route.query.fecIni || "";
 const fecFin = route.query.fecFin || "";
@@ -81,7 +88,7 @@ const estaSeleccionada = (habitacion) => {
 // Finaliza la selección de habitaciones y redirige a login
 const finalizarSeleccion = () => {
   if (selectedRooms.value.length === 0) {
-    alert("Selecciona al menos una habitación.");
+    mostrarNotificacion("Selecciona al menos una habitación.");
     return;
   }
 
@@ -97,6 +104,13 @@ const finalizarSeleccion = () => {
       habitaciones: JSON.stringify(selectedRooms.value),
     },
   });
+};
+
+// Muestra la notificación en caso de que no se hayan seleccionado habitaciones
+const mostrarNotificacion = (texto) => {
+  mensaje.value = texto;
+  mostrarMensaje.value = true;
+  setTimeout(() => (mostrarMensaje.value = false), 3000);
 };
 
 // Carga habitaciones al montar el componente

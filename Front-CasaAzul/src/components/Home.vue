@@ -14,6 +14,10 @@
     </nav>
   </header>
 
+  <div v-if="mostrarMensaje" class="notificacion">
+    {{ mensaje }}
+  </div>
+
   <main>
     <section id="inicio">
       <div id="divFormulario">
@@ -186,6 +190,9 @@ const fecIni = ref("");
 const fecFin = ref("");
 const menuAbierto = ref(false);
 
+const mensaje = ref(""); // Contenido del mensaje de notificación
+const mostrarMensaje = ref(false); // Estado de visibilidad del mensaje
+
 // Se ejecuta al montar el componente: añade animaciones a elementos al entrar en pantalla
 onMounted(() => {
   const observer = new IntersectionObserver((entries) => {
@@ -214,7 +221,7 @@ onMounted(() => {
 // Navega a la página de reservas si se han seleccionado fechas
 const reservar = () => {
   if (!fecIni.value || !fecFin.value) {
-    alert("Selecciona una fecha de inicio y fin");
+    mostrarNotificacion("Selecciona una fecha de inicio y fin.");
     return;
   }
   router.push({
@@ -237,4 +244,12 @@ const misReservas = () => {
 const toggleMenu = () => {
   menuAbierto.value = !menuAbierto.value;
 };
+
+// Muestra la notificación en caso de que no se hayan seleccionado las fechas de inicio y fin
+const mostrarNotificacion = (texto) => {
+  mensaje.value = texto;
+  mostrarMensaje.value = true;
+  setTimeout(() => (mostrarMensaje.value = false), 3000);
+};
+
 </script>
