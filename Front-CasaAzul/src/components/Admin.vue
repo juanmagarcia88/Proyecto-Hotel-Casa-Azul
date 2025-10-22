@@ -59,10 +59,23 @@ const mensajeModal = ref(null); // Contenido del mensaje dentro del modal
 // Redirige al login de admin
 const Home = () => router.push("/loginAdmin");
 
+// Función para obtener token de localStorage
+const getToken = () => localStorage.getItem("token");
+
+// Configuración de headers con token
+const axiosConfig = () => ({
+  headers: {
+    Authorization: `Bearer ${getToken()}`
+  }
+});
+
 // Obtiene todas las reservas
 const obtenerReservas = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/reserva/mostrartodas");
+    const response = await axios.get(
+      "http://localhost:8080/reserva/mostrartodas",
+      axiosConfig()
+    );
     reservas.value = response.data;
   } catch (err) {
     console.error("Error al obtener las reservas", err);
@@ -92,7 +105,10 @@ const abrirModalMensaje = (texto, tipo = "exito") => {
 // Confirmar eliminación
 const confirmarEliminacion = async () => {
   try {
-    await axios.delete(`http://localhost:8080/reserva/eliminar/${reservaAEliminar}`);
+    await axios.delete(
+      `http://localhost:8080/reserva/eliminar/${reservaAEliminar}`,
+      axiosConfig()
+    );
     reservas.value = reservas.value.filter(r => r.id !== reservaAEliminar);
     abrirModalMensaje("Reserva eliminada correctamente", "exito");
   } catch (err) {
@@ -109,6 +125,11 @@ const cancelarEliminacion = () => {
 
 // Carga las reservas al montar el componente
 onMounted(() => {
+  // Si no hay token, redirige al login
+  if (!getToken()) {
+    router.push("/loginAdmin");
+    return;
+  }
   obtenerReservas();
 });
 </script>

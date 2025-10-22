@@ -11,8 +11,8 @@
         <label class="label" for="usuario">Usuario:</label>
         <input class="inputSelect" type="text" id="usuario" v-model="usuario" required>
 
-        <label class="label" for="contraseña">Contraseña:</label>
-        <input class="inputSelect" type="password" id="contraseña" v-model="contraseña" required>
+        <label class="label" for="contrasena">Contraseña:</label>
+        <input class="inputSelect" type="password" id="contrasena" v-model="contrasena" required>
 
         <p v-if="error" class="errorMensaje">{{ error }}</p>
 
@@ -26,12 +26,13 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const router = useRouter();
 
 // Variables reactivas para almacenar los datos del formulario
 const usuario = ref('');
-const contraseña = ref('');
+const contrasena = ref('');
 const error = ref('');
 
 // Redirige al inicio
@@ -39,12 +40,18 @@ const Home = () => {
   router.push("/");
 };
 
-// Función que valida el login del admin con credenciales fijas
-const login = () => {
-  if (usuario.value === "admin255" && contraseña.value === "0361") {
-    router.push("/admin"); // Si son válidas, redirige a la vista de administrador
-  } else {
-    error.value = "Usuario o contraseña incorrectos"; // Si no, muestra error
+// Función que valida el login del admin
+const login = async () => {
+  try {
+    const res = await axios.post("http://localhost:8080/admin/login", {
+      usuario: usuario.value,
+      contrasena: contrasena.value,
+    });
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("rol", res.data.rol);
+    router.push("/admin");
+  } catch (e) {
+    error.value = "Usuario o contraseña incorrectos";
   }
 };
 </script>
