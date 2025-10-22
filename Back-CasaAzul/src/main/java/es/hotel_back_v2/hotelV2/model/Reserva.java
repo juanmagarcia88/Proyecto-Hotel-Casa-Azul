@@ -1,7 +1,6 @@
 package es.hotel_back_v2.hotelV2.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -31,10 +30,6 @@ public class Reserva {
     @JoinColumn(name = "cliente_id")
     @JsonBackReference
     private Cliente cliente;
-
-    @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Pago> pagos;
 
     @ManyToMany
     @JoinTable(
@@ -84,14 +79,6 @@ public class Reserva {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-
-    public List<Pago> getPagos() {
-        return pagos;
-    }
-
-    public void setPagos(List<Pago> pagos) {
-        this.pagos = pagos;
     }
 
     public List<Habitacion> getHabitaciones() {
