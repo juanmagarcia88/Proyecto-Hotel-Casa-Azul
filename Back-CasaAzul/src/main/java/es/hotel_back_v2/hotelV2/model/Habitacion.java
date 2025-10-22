@@ -26,12 +26,8 @@ public class Habitacion {
     @Min(value = 1, message = "La capacidad debe ser al menos 1 persona")
     private int capacidad;
 
-    //relaciones
-
     @ManyToMany(mappedBy = "habitaciones")
     private List<Reserva> reservas;
-
-    //constructores
 
     public Habitacion(String tipo, double precio, Estado estado, int capacidad) {
         this.tipo = tipo;
@@ -46,8 +42,6 @@ public class Habitacion {
         DISPONIBLE,
         OCUPADA
     }
-
-    //getters and setters
 
     public Long getNumero() {
         return numero;

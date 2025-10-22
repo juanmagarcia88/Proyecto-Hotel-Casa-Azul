@@ -20,6 +20,7 @@ public class AdminController {
     @Autowired
     private JwtService jwtService;
 
+    // Endpoint para autenticar administrador. Devuelve un JWT si las credenciales son correctas
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
         String usuario = credentials.get("usuario");

@@ -58,6 +58,9 @@ public class ClienteService {
         }
     }
 
+    /**
+     * Login de cliente
+     */
     public Cliente login(String dni, String contrasena) {
         Optional<Cliente> cliente = clienteRepository.findByDni(dni);
 

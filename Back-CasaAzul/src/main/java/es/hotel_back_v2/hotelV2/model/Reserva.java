@@ -25,13 +25,11 @@ public class Reserva {
     @Future(message = "La fecha de fin debe ser futura")
     private Date fecha_fin;
 
-    private Double total; // Asegúrate de que el campo 'total' está presente
-
-    //relaciones
+    private Double total;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonBackReference //evita que se serialice la relación inversa
+    @JsonBackReference
     private Cliente cliente;
 
     @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL)
@@ -46,8 +44,6 @@ public class Reserva {
     )
     private List<Habitacion> habitaciones;
 
-    //constructores
-
     public Reserva(Long id, Date fecha_inicio, Date fecha_fin) {
         this.id = id;
         this.fecha_inicio = fecha_inicio;
@@ -57,8 +53,6 @@ public class Reserva {
     public Reserva() {
 
     }
-
-    //getters and setters
 
     public Long getId() {
         return id;

@@ -38,11 +38,9 @@ public class Cliente {
     @JsonIgnoreProperties("cliente")
     private List<Reserva> reservas;
 
-    // Constructor vacío
     public Cliente() {
     }
 
-    // Constructor con todos los campos
     public Cliente(String dni, String nombre, String apellido, String telefono, String email, String contrasena) {
         this.dni = dni;
         this.nombre = nombre;

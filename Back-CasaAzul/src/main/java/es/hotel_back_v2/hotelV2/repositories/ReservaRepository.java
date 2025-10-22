@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
+
+    // Obtiene todas las reservas de un cliente específico
     List<Reserva> findByCliente(Cliente cliente);
 }

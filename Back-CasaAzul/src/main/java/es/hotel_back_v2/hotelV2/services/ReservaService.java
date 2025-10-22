@@ -70,7 +70,7 @@ public class ReservaService {
                 : TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
         double total = habitaciones.stream()
-                .mapToDouble(h -> h.getPrecio() * noches) // noches ahora es final
+                .mapToDouble(h -> h.getPrecio() * noches)
                 .sum();
 
         // Crear y guardar la reserva
@@ -105,8 +105,7 @@ public class ReservaService {
                 // verificamos si alguna de las habitaciones solicitadas ya está ocupada
                 for (Habitacion habitacionSolicitada : habitacionesSolicitadas) {
                     if (habitacion.getNumero().equals(habitacionSolicitada.getNumero())) {
-                        // si las fechas de la nueva reserva se solapan con las fechas de la reserva
-                        // existente
+                        // si las fechas de la nueva reserva se solapan con las fechas de la reserva existente
                         long inicioExistente = reserva.getFecha_inicio().getTime();
                         long finExistente = reserva.getFecha_fin().getTime();
                         long nuevoInicio = fechaInicio.getTime();

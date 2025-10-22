@@ -23,6 +23,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private JwtService jwtService;
 
+    /**
+     * Filtro que se ejecuta una vez por cada solicitud HTTP
+     * 
+     * Función principal:
+     * - Revisa si la petición tiene un header "Authorization" con un JWT
+     * - Si existe, extrae el username del token
+     * - Crea un objeto de autenticación con ROLE_ADMIN
+     * - Inserta la autenticación en el contexto de seguridad de Spring
+     * - Permite que la petición continúe su flujo
+    */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

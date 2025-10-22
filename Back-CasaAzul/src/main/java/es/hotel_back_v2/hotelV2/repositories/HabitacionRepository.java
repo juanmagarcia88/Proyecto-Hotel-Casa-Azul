@@ -8,5 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface HabitacionRepository extends JpaRepository<Habitacion, Long> {
+
+    // Método opcional para buscar una habitación por su ID
     Optional<Habitacion> findById(Long id);
 }

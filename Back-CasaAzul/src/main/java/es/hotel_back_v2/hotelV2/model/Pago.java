@@ -3,7 +3,6 @@ package es.hotel_back_v2.hotelV2.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
@@ -29,14 +28,10 @@ public class Pago {
     @PastOrPresent(message = "La fecha de pago no puede ser futura")
     private LocalDate fecha;
 
-    //relaciones
-
     @ManyToOne
     @JoinColumn(name = "reserva_id")
     @JsonBackReference
     private Reserva reserva;
-
-    //constructores
 
     public Pago() {
     }
@@ -54,8 +49,6 @@ public class Pago {
         this.factura = factura;
         this.fecha = fecha;
     }
-
-    //getters and setters
 
     public Long getId() {
         return id;

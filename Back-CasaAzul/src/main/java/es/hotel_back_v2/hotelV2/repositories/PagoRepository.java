@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PagoRepository extends JpaRepository<Pago, Long> {
+
+    // Verifica si ya existe un pago asociado a una reserva
     boolean existsByReservaId(Long reservaId);
 }

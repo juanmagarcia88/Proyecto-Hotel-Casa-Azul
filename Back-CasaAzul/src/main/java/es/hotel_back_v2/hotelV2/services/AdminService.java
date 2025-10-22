@@ -27,6 +27,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Valida login de admin
+     * @param usuario nombre de usuario del admin
+     * @param contrasena contraseña ingresada
+     * @return true si las credenciales son correctas
+     */
     public boolean login(String usuario, String contrasena) {
         Optional<Admin> adminOpt = adminRepository.findByUsuario(usuario);
 

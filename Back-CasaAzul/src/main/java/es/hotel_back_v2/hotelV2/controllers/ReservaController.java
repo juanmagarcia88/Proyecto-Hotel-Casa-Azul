@@ -78,6 +78,7 @@ public class ReservaController {
         return reservaService.listarReservasAgrupadasPorFecha();
     }
 
+    //buscar reservas por dni
     @GetMapping("/buscarporDni/{dni}")
     public ResponseEntity<List<Reserva>> buscarReservasPorDni(@PathVariable String dni) {
         List<Reserva> reservas = reservaService.buscarReservasPorDni(dni);
