@@ -36,7 +36,12 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/admin/login").permitAll()
+                .requestMatchers("/admin/login",
+                "/admin/login",
+                "/cliente/login",
+                "/cliente/registro",
+                "/habitacion/mostrarDisponibles",
+                "/reserva/crear").permitAll()
                 .anyRequest().authenticated());
 
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

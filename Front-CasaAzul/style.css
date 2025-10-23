@@ -946,6 +946,28 @@ footer {
   align-items: flex-start;
 }
 
+.no-reservas {
+  text-align: center;
+  background-color: #f8f9fa;
+  color: #444;
+  border-radius: 10px;
+  padding: 25px;
+  margin: 50px auto;
+  width: fit-content;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.no-reservas::before {
+  content: "🛏️ ";
+  font-size: 20px;
+}
+
+.no-reservas:hover {
+  transform: scale(1.1);
+}
+
 .noRegistrado:hover {
   border-bottom: 1px solid #001C55;
   cursor: pointer;

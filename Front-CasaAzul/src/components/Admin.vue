@@ -25,6 +25,10 @@
         </div>
       </div>
 
+      <h2 v-if="reservas.length === 0" class="no-reservas">
+        No hay reservas en pie actualmente en el hotel.
+      </h2>
+
       <!-- Modal de confirmación / mensaje -->
       <div class="modal" :class="{ visible: confirmacionVisible }">
         <div class="modal-content">
